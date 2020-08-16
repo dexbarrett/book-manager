@@ -1,4 +1,5 @@
 const mix = require('laravel-mix');
+const path = require('path');
 
 /*
  |--------------------------------------------------------------------------
@@ -11,5 +12,15 @@ const mix = require('laravel-mix');
  |
  */
 
+mix.webpackConfig({
+    resolve: {
+        alias: {
+            ziggy: path.resolve('vendor/tightenco/ziggy/src/js/route.js')
+        },
+    },
+});
+
 mix.js('resources/js/app.js', 'public/js')
-    .sass('resources/sass/app.scss', 'public/css');
+    .extract(['jquery', 'popper.js', 'bootstrap'])
+    .sass('resources/sass/app.scss', 'public/css')
+    .version();
